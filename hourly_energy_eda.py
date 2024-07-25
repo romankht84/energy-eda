@@ -1045,7 +1045,10 @@ if uploaded_file:
                     def footer(self):
                         self.set_y(-15)
                         self.set_font('Arial', 'I', 8)
-                        self.cell(0, 5, f'Page {self.page_no()}', 0, 0, 'C')
+                        self.cell(0, 5, f'Page {self.page_no()}', 0, 1, 'C')
+                        self.set_y(-10)  # Adjust position for the link
+                        self.cell(0, 5, 'App link: https://energy-eda-v01.streamlit.app/', 0, 0, 'C', link='https://energy-eda-v01.streamlit.app/')
+
                 
                     def chapter_title(self, title):
                         self.chapter_number += 1
