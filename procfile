@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit run hourly_energy_eda.py
+web: sh setup.sh && streamlit run app.py
