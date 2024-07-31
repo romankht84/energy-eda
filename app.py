@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Jul 26 20:39:12 2024
 
-@author: amrit
-"""
 import streamlit as st
 
 # Custom CSS for the sidebar and navigation buttons
