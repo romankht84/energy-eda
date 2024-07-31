@@ -22,10 +22,21 @@ import plotly.express as px
 from collections import defaultdict
 import tempfile
 import base64
+from firebase_config import initialize_firebase
+from firebase_admin import db
+import xlsxwriter
 
 
 # Streamlit app layout
-st.set_page_config(page_title="Solar Analytics", layout="centered", initial_sidebar_state="auto")
+#st.set_page_config(page_title="Solar Analytics", layout="centered", initial_sidebar_state="auto")
+
+# Initialize Firebase
+initialize_firebase()
+
+def save_to_firebase(data):
+    ref = db.reference('your-database-path')
+    ref.push(data)
+
 
 
 # CSS for custom styling
@@ -77,7 +88,7 @@ table_css = """
 #
 #-------Section Header CSS-------#
 
-def styled_text_block(text, color='#000000', background_color='#FFFFE0'):
+def styled_text_block(text, color='#000000', background_color='#DBEAFE'):
     html_code = f"""
     <style>
     .styled-text {{
@@ -118,7 +129,6 @@ def center_title(title_text):
     st.markdown(html_code, unsafe_allow_html=True)
 
 #--------------------------------#
-
 
 
 
@@ -211,7 +221,16 @@ def calculate_analytics(df, datetime_col, energy_col):
 
 
 # Streamlit App
+
+#------Header Section-------#
+
 st.title('Energy Data Updater and Analytics')
+
+
+
+
+#-----Rest of the display Elements-------#
+
 if 'cover_page_submitted' not in st.session_state:
         st.session_state.cover_page_submitted = False
 
@@ -237,6 +256,16 @@ with st.form(key='cover_page_form'):
     cover_page_submitted = st.form_submit_button("Submit")
 
     if cover_page_submitted:
+        form_data = {
+            'title': title,
+            'company_name': company_name,
+            'client_name': client_name,
+            'contact_details': contact_details,
+            'project_title': project_title,
+        }
+        save_to_firebase(form_data)
+        st.success('Form data saved successfully!')
+        
         st.session_state.cover_page_submitted = True
         st.session_state.title = title
         st.session_state.company_name = company_name
@@ -257,7 +286,7 @@ if uploaded_file:
         energy_col = input_df.columns[1]
 
         # Fill missing rows and update 'energy_comp_kWh'
-        col1,col2,col3=st.columns(3)
+        col1,col2,col3=st.columns([1.5,1.5,.75])
         filled_df, missing_rows = fill_missing_rows(input_df, datetime_col, energy_col)
 
         if filled_df is not None:
@@ -289,7 +318,13 @@ if uploaded_file:
             st.write('\n')
             st.write('\n')
             st.write('\n')
-            st.write(f"Average Daily Energy Consumption: {analytics['average_daily_consumption']} kWh")
+            styled_text_block(f"Average Daily Energy Consumption:", color='#008080', background_color='#DBEAFE')
+            col1,col2,col3=st.columns([1.5,1.5,.75])
+            col2.write(f"### {analytics['average_daily_consumption']} kWh")
+            
+
+            st.write('\n')
+            st.write('\n')
             daily_avg_24h = analytics['average_daily_consumption']
             
             #st.write('Test Monthly df',analytics['monthly_consumption'])
@@ -1579,14 +1614,54 @@ if uploaded_file:
                     solar_distribution_plot_path=solar_distribution_plot_path
                 )
                 
+                st.write('_____')
+                st.sidebar.write('_____')
+                
                 # Provide download option for the PDF report as a button
                 b64_pdf = base64.b64encode(pdf_content).decode('latin1')
-                href = f'<a href="data:application/octet-stream;base64,{b64_pdf}" download="energy_consumption_report.pdf"><button style="background-color:#4CAF50;border:none;color:white;padding:15px 32px;text-align:center;text-decoration:none;display:inline-block;font-size:16px;margin:4px 2px;cursor:pointer;border-radius:4px;">Download PDF Report</button></a>'
+                href = f'<a href="data:application/octet-stream;base64,{b64_pdf}" download="energy_consumption_report.pdf"><button class="nav-button-download">Download PDF Report</button></a>'
                 st.markdown(href, unsafe_allow_html=True)
                 
                 # Place the download button in the sidebar as well
                 st.sidebar.markdown(href, unsafe_allow_html=True)
 
+                #Function to convert DataFrame to Excel and encode as base64
+                def convert_df_to_excel(df):
+                    output = BytesIO()
+                    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+                    df.to_excel(writer, index=True, sheet_name='Sheet1')  # Set index=True
+                    writer.save()
+                    processed_data = output.getvalue()
+                    return processed_data
+                # Convert DataFrame to Excel and encode as base64
+                #monthly_merged_df.set_index('Month', inplace=True)
+                excel_data = convert_df_to_excel(daily_merged_df)
+                b64_excel = base64.b64encode(excel_data).decode()
+                
+                # Download Excel file button for `monthly_merged_df`
+                excel_href = f'<a href="data:application/octet-stream;base64,{b64_excel}" download="daily_merged_df.xlsx"><button class="nav-button-download">Download daily Merged Data</button></a>'
+                st.sidebar.markdown(excel_href, unsafe_allow_html=True)
+                
+                
+                
+                
+                # Download Button for Excess Daily Solar Production
+                excess_daily_production_df = pd.DataFrame(list(excess_daily_production.items()), columns=['Date', 'Excess Production (kWh)'])
+
+                # Ensure the Date column is in datetime format
+                excess_daily_production_df['Date'] = pd.to_datetime(excess_daily_production_df['Date'])
+
+                # Set the Date column as the index
+                excess_daily_production_df.set_index('Date', inplace=True)
+                
+                
+                # Convert DataFrame to Excel and encode as base64
+                excel_excess_data = convert_df_to_excel(excess_daily_production_df)
+                b64_excess_excel = base64.b64encode(excel_excess_data).decode()
+                
+                # Download Excel file button for `daily_excess_df`
+                excess_excel_href = f'<a href="data:application/octet-stream;base64,{b64_excess_excel}" download="daily_excess_df.xlsx"><button class="nav-button-download">Download daily Excess Data</button></a>'
+                st.sidebar.markdown(excess_excel_href, unsafe_allow_html=True)
 
 
 
