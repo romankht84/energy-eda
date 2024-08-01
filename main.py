@@ -256,22 +256,24 @@ with st.form(key='cover_page_form'):
     cover_page_submitted = st.form_submit_button("Submit")
 
     if cover_page_submitted:
-        form_data = {
-            'title': title,
-            'company_name': company_name,
-            'client_name': client_name,
-            'contact_details': contact_details,
-            'project_title': project_title,
-        }
-        save_to_firebase(form_data)
-        st.success('Form data saved successfully!')
-        
         st.session_state.cover_page_submitted = True
         st.session_state.title = title
         st.session_state.company_name = company_name
         st.session_state.client_name = client_name
         st.session_state.contact_details = contact_details
         st.session_state.project_title = project_title
+
+        # Save data to Firebase
+        data = {
+            "title": title,
+            "company_name": company_name,
+            "client_name": client_name,
+            "contact_details": contact_details,
+            "project_title": project_title
+        }
+        ref = db.reference("/cover_page_data")
+        ref.push(data)
+        st.success("Data saved for Proposal/Report!")
 
 
 if uploaded_file:
