@@ -33,9 +33,6 @@ import xlsxwriter
 # Initialize Firebase
 initialize_firebase()
 
-def save_to_firebase(data):
-    ref = db.reference('your-database-path')
-    ref.push(data)
 
 
 
