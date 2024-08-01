@@ -7,5 +7,5 @@ numpy==1.24.0
 pvlib==0.9.3
 pytz==2022.1
 plotly==5.10.0
-openpyxl
-firebase-admin
+openpyxl==3.0.10
+firebase-admin==5.2.0
