@@ -10,3 +10,4 @@ plotly==5.10.0
 openpyxl==3.0.10
 firebase-admin==5.2.0
 xlsxwriter==3.0.2
+base64
