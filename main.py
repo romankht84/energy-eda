@@ -1630,9 +1630,9 @@ if uploaded_file:
                 #Function to convert DataFrame to Excel and encode as base64
                 def convert_df_to_excel(df):
                     output = BytesIO()
-                    writer = pd.ExcelWriter(output, engine='xlsxwriter')
-                    df.to_excel(writer, index=True, sheet_name='Sheet1')  # Set index=True
-                    writer.save()
+                    #writer = pd.ExcelWriter(output, engine='xlsxwriter')
+                    df.to_excel(output, index=True, sheet_name='Sheet1')  # Set index=True
+                    #writer.save()
                     processed_data = output.getvalue()
                     return processed_data
                 # Convert DataFrame to Excel and encode as base64
