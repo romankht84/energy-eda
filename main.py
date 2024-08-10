@@ -295,13 +295,29 @@ if uploaded_file:
             filled_df.to_excel(output, index=False)
             output.seek(0)
 
-            
-            col2.download_button(
-                label="Download Updated Dataset",
-                data=output,
-                file_name='updated_energy_data.xlsx',
-                mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-            )
+            # Encode the output in base64
+            b64 = base64.b64encode(output.read()).decode()
+
+            # HTML and CSS for the download button
+            download_button_html = f'''
+            <a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="updated_energy_data.xlsx">
+                <button style="
+                    background-color: #4CAF50; /* Green */
+                    border: none;
+                    color: white;
+                    padding: 10px 20px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 4px 2px;
+                    cursor: pointer;
+                    width: 200px; /* Adjust the width as needed */
+                ">Download Updated Dataset</button>
+            </a>
+            '''
+
+            col2.markdown(download_button_html, unsafe_allow_html=True)
 
             # Calculate and display analytics
             analytics = calculate_analytics(filled_df, datetime_col, 'energy_comp_kWh')
