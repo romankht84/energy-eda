@@ -263,16 +263,6 @@ with st.form(key='cover_page_form'):
         st.session_state.contact_details = contact_details
         st.session_state.project_title = project_title
 
-        # Save data to Firebase
-        data = {
-            "title": title,
-            "company_name": company_name,
-            "client_name": client_name,
-            "contact_details": contact_details,
-            "project_title": project_title
-        }
-        ref = db.reference("/cover_page_data")
-        ref.push(data)
         st.success("Data saved for Proposal/Report!")
 
 
@@ -1679,7 +1669,7 @@ if uploaded_file:
 
 
             else:
-                st.warning("Please enter valid latitude and longitude coordinates.")
+                st.warning("Please enter valid lat, Lon, Your correct time-zone & Press Submit Button")
 
 
 #------------------PDF Report Generation Section----------#
