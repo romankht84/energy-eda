@@ -238,6 +238,18 @@ uploaded_file = st.file_uploader("Choose a dataset Excel file", type=["xlsx"])
 # Upload the company logo
 logo_file = st.file_uploader("Choose a company logo (PNG/JPEG)", type=["png", "jpeg", "jpg"])
 
+st.write('\n')
+st.write('\n')
+st.markdown("""
+    <div style="background-color: #f8d7da; padding: 15px; border-radius: 5px; border: 1px solid #f5c6cb; text-align: center;">
+        <span style="font-weight: bold; color: #721c24; font-size: 18px;">
+            ⚠️ Please <u>DO NOT</u> Upload any Leap Year Data. If Leap Year Data is uploaded, then only the first 8760 hours will be considered.
+        </span>
+    </div>
+""", unsafe_allow_html=True)
+st.write('\n')
+st.write('\n')
+
 # Cover page form
 with st.form(key='cover_page_form'):
     col1, col2 = st.columns(2)
@@ -263,13 +275,7 @@ with st.form(key='cover_page_form'):
 
         st.success("Data saved for Proposal/Report!")
 
-st.markdown("""
-    <div style="background-color: #f8d7da; padding: 15px; border-radius: 5px; border: 1px solid #f5c6cb; text-align: center;">
-        <span style="font-weight: bold; color: #721c24; font-size: 18px;">
-            ⚠️ Please <u>DO NOT</u> Upload any Leap Year Data. If Leap Year Data is uploaded, then only the first 8760 hours will be considered.
-        </span>
-    </div>
-""", unsafe_allow_html=True)
+
 
 if uploaded_file:
     input_df = pd.read_excel(uploaded_file)
