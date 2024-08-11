@@ -1,5 +1,12 @@
 import streamlit as st
 
+st.set_page_config(
+    page_title=" ",
+    page_icon="🌅",  # Replace with your preferred emoji
+    layout="centered",
+    initial_sidebar_state="auto"
+)
+
 # Custom CSS for the sidebar and navigation buttons
 sidebar_style = """
     <style>
