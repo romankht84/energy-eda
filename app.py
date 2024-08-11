@@ -1,4 +1,3 @@
-
 import streamlit as st
 
 # Custom CSS for the sidebar and navigation buttons
@@ -13,7 +12,7 @@ sidebar_style = """
             color: white; /* White text */
         }
         /* Custom styles for the navigation buttons */
-        .nav-button-home, .nav-button-main, .nav-button-howto, .nav-button-download {
+        .nav-button-home, .nav-button-main, .nav-button-howto, .nav-button-download, .nav-button-disclaimer {
             display: block;
             border: none;
             color: white;
@@ -24,21 +23,29 @@ sidebar_style = """
             margin: 4px 2px;
             cursor: pointer;
             border-radius: 4px;
-            width: 100%;
+            
         }
         .nav-button-home {
             background-color: #4CAF50;
+            width: 100%;
         }
         .nav-button-main {
             background-color: #FF6347;
+            width: 100%;
         }
         .nav-button-howto {
             background-color: #1E90FF;
+            width: 100%;
         }
         .nav-button-download {
             background-color: #4682B4; /* Blue Violet */
+            width: 100%;
         }
-        .nav-button-home a, .nav-button-main a, .nav-button-howto a, .nav-button-download a {
+        .nav-button-disclaimer {
+            background-color: #B22222;
+            width: 100%;
+        }
+        .nav-button-home a, .nav-button-main a, .nav-button-howto a, .nav-button-download a, .nav-button-disclaimer a {
             color: white;
             text-decoration: none;
         }
@@ -53,6 +60,9 @@ sidebar_style = """
         }
         .nav-button-download:hover {
             background-color: #DAA520; 
+        }
+        .nav-button-disclaimer:hover {
+            background-color: #CD5C5C; 
         }
     </style>
 """
@@ -73,6 +83,7 @@ nav_buttons = """
     <div class="nav-button-home"><a href="?page=home">Home</a></div>
     <div class="nav-button-main"><a href="?page=main">Main App</a></div>
     <div class="nav-button-howto"><a href="?page=howto">How to Use</a></div>
+    <div class="nav-button-disclaimer"><a href="?page=disclaimer">Disclaimer & Privacy Policy</a></div>
 </div>
 """
 
@@ -88,3 +99,7 @@ elif current_page == 'main':
     
 elif current_page == 'howto':
     exec(open("howto.py").read())
+    
+elif current_page == 'disclaimer':
+    exec(open("disclaimer.py").read())
+    
