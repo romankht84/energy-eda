@@ -1,7 +1,7 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title=" ",
+    page_title="Hourly Energy EDA",
     page_icon="🌅",  # Replace with your preferred emoji
     layout="centered",
     initial_sidebar_state="auto"
