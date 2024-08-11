@@ -225,7 +225,13 @@ def calculate_analytics(df, datetime_col, energy_col):
 #------Header Section-------#
 
 st.title('Energy Data Updater and Analytics')
-
+st.markdown("""
+    <div style="background-color: #f8d7da; padding: 15px; border-radius: 5px; border: 1px solid #f5c6cb; text-align: center;">
+        <span style="font-weight: bold; color: #721c24; font-size: 18px;">
+            ⚠️ Please <u>DO NOT</u> Upload any Leap Year Data. If Leap Year Data is uploaded, then only the first 8760 hours will be considered.
+        </span>
+    </div>
+""", unsafe_allow_html=True)
 
 
 
