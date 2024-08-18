@@ -237,30 +237,39 @@ uploaded_file = st.file_uploader("Choose a dataset Excel file", type=["xlsx"])
 st.write('\n')
 st.write('\n')
 st.write('\n')
-# HTML and CSS code for the button
+# HTML and CSS code for the centered button with improved colors
 download_button_html = """
     <style>
+        .download-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
         .download-btn {
             display: inline-block;
-            padding: 12px 24px;
-            font-size: 16px;
+            padding: 14px 28px;
+            font-size: 18px;
             font-weight: bold;
             color: white;
-            background-color: #B22222;
+            background-color: #4CAF50; /* Fresh green color */
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             text-align: center;
             text-decoration: none;
             transition: background-color 0.3s ease;
             cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add some shadow for a 3D effect */
         }
 
         .download-btn:hover {
-            background-color: #FF6347; /* Hover color */
+            background-color: #45a049; /* Darker shade on hover */
         }
     </style>
 
-    <a href="https://github.com/amritPVre/energy-eda/raw/main/sample_eda.xlsx" class="download-btn" download>Download Sample Excel File</a>
+    <div class="download-btn-container">
+        <a href="https://github.com/amritPVre/energy-eda/raw/main/sample_eda.xlsx" class="download-btn" download>Get Sample Excel File To Upload & Test</a>
+    </div>
 """
 
 # Display the button in your Streamlit app
