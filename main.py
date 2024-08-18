@@ -252,7 +252,7 @@ download_button_html = """
             font-size: 18px;
             font-weight: bold;
             color: white;
-            background-color: #4CAF50; /* Fresh green color */
+            background-color: #a7f917; /* Fresh green color */
             border: none;
             border-radius: 12px;
             text-align: center;
@@ -263,7 +263,7 @@ download_button_html = """
         }
 
         .download-btn:hover {
-            background-color: #45a049; /* Darker shade on hover */
+            background-color: ##97e115; /* Darker shade on hover */
         }
     </style>
 
