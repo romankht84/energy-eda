@@ -234,6 +234,40 @@ if 'cover_page_submitted' not in st.session_state:
 
 # Upload the user dataset
 uploaded_file = st.file_uploader("Choose a dataset Excel file", type=["xlsx"])
+st.write('\n')
+st.write('\n')
+st.write('\n')
+# HTML and CSS code for the button
+download_button_html = """
+    <style>
+        .download-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #B22222;
+            border: none;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            background-color: #FF6347; /* Hover color */
+        }
+    </style>
+
+    <a href="https://github.com/amritPVre/energy-eda/raw/main/sample_eda.xlsx" class="download-btn" download>Download Sample Excel File</a>
+"""
+
+# Display the button in your Streamlit app
+st.markdown(download_button_html, unsafe_allow_html=True)
+st.write('\n')
+st.write('\n')
+st.write('\n')
 
 # Upload the company logo
 logo_file = st.file_uploader("Choose a company logo (PNG/JPEG)", type=["png", "jpeg", "jpg"])
