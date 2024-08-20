@@ -252,7 +252,7 @@ download_button_html = """
             font-size: 18px;
             font-weight: bold;
             color: white;
-            background-color: #a7f917; /* Fresh green color */
+            background-color: #d8f8ab; /* Fresh green color */
             border: none;
             border-radius: 12px;
             text-align: center;
